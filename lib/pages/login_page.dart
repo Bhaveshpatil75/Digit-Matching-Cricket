@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                           email: em.text,
                           password: ps.text
                       );
-                      print("Logged in");
+                      Navigator.pushNamedAndRemoveUntil(context, "/notes/", (_)=>false);
                     }on FirebaseAuthException  catch (e) {
                       if (e.code =="invalid-credential")
                         print("wrong pass");

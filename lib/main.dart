@@ -29,6 +29,9 @@ class MyApp extends StatelessWidget {
       routes: {
         "/login/":(context)=>LoginPage(),
         "/register/":(context)=>RegisterPage(),
+        "/notes/":(context)=>NotesPage(),
+        "/verify/":(context)=>VerifyPage(),
+        "/routing/":(context) =>RoutePage(),
       },
     );
   }

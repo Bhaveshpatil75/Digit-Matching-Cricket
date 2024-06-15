@@ -1,3 +1,4 @@
+import 'package:fcc/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +54,9 @@ class _RegisterPage extends State<RegisterPage> {
                         email: em.text,
                         password: ps.text
                     );
-                    print("Registered");
+                    Navigator.pushNamedAndRemoveUntil(context, "/verify/", (_)=>false);
                   } on FirebaseAuthException catch (e) {//catching the exception if creation of user fails
                     print(e.code);  //various types of exception could be handled here. (like we did in Loginpage)
-                    // TODO
                   }
                 },
                 child: Text("Register"),
