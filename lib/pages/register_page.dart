@@ -56,7 +56,9 @@ class _RegisterPage extends State<RegisterPage> {
                         email: em.text,
                         password: ps.text
                     );
-                    Navigator.pushNamedAndRemoveUntil(context, verifyRoute, (_)=>false);
+                    final user=FirebaseAuth.instance.currentUser;
+                    await user?.sendEmailVerification();
+                    Navigator.pushNamed(context,verifyRoute);
                   } on FirebaseAuthException catch (e) {//catching the exception if creation of user fails
                     await showErrorDialog(context, e.code);  //various types of exception could be handled here. (like we did in Loginpage)
                   }catch(e){

@@ -50,7 +50,12 @@ class _LoginPageState extends State<LoginPage> {
                           email: em.text,
                           password: ps.text
                       );
-                      Navigator.pushNamedAndRemoveUntil(context, notesRoute, (_)=>false);
+                      if (FirebaseAuth.instance.currentUser!.emailVerified) {
+                        Navigator.pushNamedAndRemoveUntil(context, notesRoute, (_)=>false);
+                      }
+                      else{
+                        showErrorDialog(context, "Please verify your email first");
+                      }
                     }on FirebaseAuthException  catch (e) {
                        await showErrorDialog(context, e.code);
                     }catch(e){

@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         registerRoute:(context)=>RegisterPage(),
         notesRoute:(context)=>NotesPage(),
         verifyRoute:(context)=>VerifyPage(),
+        '/routing/':(context)=>RoutePage(),
       },
     );
   }
@@ -103,7 +104,7 @@ class _NotesPageState extends State<NotesPage> {
       ),
       body: Container(
         child:Center(
-            child:Text("Main Content.")
+            child:Text("blah blah blah...")
         ),
       ),
     );

@@ -11,13 +11,18 @@ class VerifyPage extends StatelessWidget {
       appBar: AppBar(title: const Text("Verification"),),
       body: Column(
         children: [
-          const Text("Please verify your email first"),
-          const SizedBox(height: 20,),
+          const Text("We've sent you a verification mail"),
+          SizedBox(height: 10,),
+          const Text("If mail not received click the button below"),
           ElevatedButton(onPressed: ()async{
             final user=FirebaseAuth.instance.currentUser;
-            await user?.sendEmailVerification();
+              await user?.sendEmailVerification();
+          }, child: const Text("Send verification email AGAIN " )),
+          SizedBox(height: 20,),
+          Text("Proceed to login if you verified your email"),
+          ElevatedButton(onPressed: (){
             Navigator.pushNamedAndRemoveUntil(context,loginRoute, (_)=>false);
-          }, child: const Text("Send verification email"))
+          }, child: Text("Login"))
         ],
       ),
     );
