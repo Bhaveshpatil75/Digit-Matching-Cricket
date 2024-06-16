@@ -1,3 +1,4 @@
+import 'package:fcc/constants/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class VerifyPage extends StatelessWidget {
           ElevatedButton(onPressed: ()async{
             final user=FirebaseAuth.instance.currentUser;
             await user?.sendEmailVerification();
-            Navigator.pushNamedAndRemoveUntil(context, "/login/", (_)=>false);
+            Navigator.pushNamedAndRemoveUntil(context,loginRoute, (_)=>false);
           }, child: const Text("Send verification email"))
         ],
       ),

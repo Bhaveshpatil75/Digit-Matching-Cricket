@@ -1,3 +1,4 @@
+import 'package:fcc/constants/routes.dart';
 import 'package:fcc/main.dart';
 import 'package:fcc/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,16 +56,18 @@ class _RegisterPage extends State<RegisterPage> {
                         email: em.text,
                         password: ps.text
                     );
-                    Navigator.pushNamedAndRemoveUntil(context, "/verify/", (_)=>false);
+                    Navigator.pushNamedAndRemoveUntil(context, verifyRoute, (_)=>false);
                   } on FirebaseAuthException catch (e) {//catching the exception if creation of user fails
-                    showErrorDialog(context, e.code);  //various types of exception could be handled here. (like we did in Loginpage)
+                    await showErrorDialog(context, e.code);  //various types of exception could be handled here. (like we did in Loginpage)
+                  }catch(e){
+                    await showErrorDialog(context, e.toString());
                   }
                 },
                 child: Text("Register"),
               ),
               SizedBox(height: 20,),
               ElevatedButton(onPressed: (){
-                Navigator.pushNamedAndRemoveUntil(context, "/login/", (route)=>false);
+                Navigator.pushNamedAndRemoveUntil(context, loginRoute, (route)=>false);
               },  child: Text("Already registered? Login Now!!"))
             ],
           ),

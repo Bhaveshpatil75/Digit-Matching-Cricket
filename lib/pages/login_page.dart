@@ -1,3 +1,4 @@
+import 'package:fcc/constants/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -49,16 +50,18 @@ class _LoginPageState extends State<LoginPage> {
                           email: em.text,
                           password: ps.text
                       );
-                      Navigator.pushNamedAndRemoveUntil(context, "/notes/", (_)=>false);
+                      Navigator.pushNamedAndRemoveUntil(context, notesRoute, (_)=>false);
                     }on FirebaseAuthException  catch (e) {
-                        showErrorDialog(context, e.code);
+                       await showErrorDialog(context, e.code);
+                    }catch(e){
+                      await showErrorDialog(context, e.toString());
                     }
                   },
                   child: Text("Login"),
                 ),
                 SizedBox(height: 20,),
                 ElevatedButton(onPressed: (){
-                  Navigator.pushNamedAndRemoveUntil(context, "/register/", (route)=>false);
+                  Navigator.pushNamedAndRemoveUntil(context, registerRoute, (route)=>false);
                 },  child: Text("Not registered yet? Register Now!!"))
               ],
             ),

@@ -1,4 +1,5 @@
 
+import 'package:fcc/constants/routes.dart';
 import 'package:fcc/pages/login_page.dart';
 import 'package:fcc/pages/register_page.dart';
 import 'package:fcc/pages/verification_page.dart';
@@ -27,11 +28,10 @@ class MyApp extends StatelessWidget {
       ),
       home: const RoutePage(),
       routes: {
-        "/login/":(context)=>LoginPage(),
-        "/register/":(context)=>RegisterPage(),
-        "/notes/":(context)=>NotesPage(),
-        "/verify/":(context)=>VerifyPage(),
-        "/routing/":(context) =>RoutePage(),
+        loginRoute:(context)=>LoginPage(),
+        registerRoute:(context)=>RegisterPage(),
+        notesRoute:(context)=>NotesPage(),
+        verifyRoute:(context)=>VerifyPage(),
       },
     );
   }
@@ -95,7 +95,7 @@ class _NotesPageState extends State<NotesPage> {
             final loggedOut= await showDialogLogOut(context);
             if (loggedOut){
               await FirebaseAuth.instance.signOut();
-              Navigator.pushNamedAndRemoveUntil(context, "/login/", (route)=>false);
+              Navigator.pushNamedAndRemoveUntil(context, loginRoute, (route)=>false);
             }
             },
           )
