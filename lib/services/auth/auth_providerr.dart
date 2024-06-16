@@ -11,4 +11,6 @@ abstract class AuthProviderr {
 
   Future<void> sendVerificationMail();
 
+  Future<void> initialize();
+
 }

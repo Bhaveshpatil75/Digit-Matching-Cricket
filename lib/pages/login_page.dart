@@ -1,9 +1,8 @@
 import 'package:fcc/constants/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:fcc/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
-
-import '../firebase_options.dart';
+import '../dialogs/show_error_dialog.dart';
+import '../services/auth/auth_exceptionss.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -46,20 +45,23 @@ class _LoginPageState extends State<LoginPage> {
                 ElevatedButton(
                   onPressed: () async {
                     try {
-                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      await AuthService.firebase().logIn(
                           email: em.text,
                           password: ps.text
                       );
-                      if (FirebaseAuth.instance.currentUser!.emailVerified) {
+                      if (AuthService.firebase().currentUser!.isEmailVerified) {
                         Navigator.pushNamedAndRemoveUntil(context, notesRoute, (_)=>false);
                       }
                       else{
-                        showErrorDialog(context, "Please verify your email first");
+                        showErrorDialog(context, "Verify your Email first");
+                        Navigator.of(context).pushNamed(verifyRoute);
                       }
-                    }on FirebaseAuthException  catch (e) {
-                       await showErrorDialog(context, e.code);
-                    }catch(e){
-                      await showErrorDialog(context, e.toString());
+                    }on UserNotFoundAuthException{
+                      await showErrorDialog(context, "User Not Found");
+                    }on WrongPasswordAuthException{
+                      await showErrorDialog(context, "Wrong Password");
+                    }on GenericAuthException{
+                      await showErrorDialog(context, "Something went Wrong!!");
                     }
                   },
                   child: Text("Login"),
@@ -75,17 +77,3 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<void> showErrorDialog(BuildContext context,String errorMsg){
-  return showDialog(context: context, builder: (context){
-    return AlertDialog(
-      title: Text("Error!!"),
-      content: Text(errorMsg),
-      actions: [
-        TextButton(onPressed: (){
-          Navigator.of(context).pop();
-        }, child: Text("OK"))
-      ],
-    );
-  },
-  );
-  }

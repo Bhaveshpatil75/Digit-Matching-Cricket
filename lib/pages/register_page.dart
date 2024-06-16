@@ -1,11 +1,8 @@
 import 'package:fcc/constants/routes.dart';
-import 'package:fcc/main.dart';
-import 'package:fcc/pages/login_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:fcc/services/auth/auth_exceptionss.dart';
+import 'package:fcc/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
-
-import '../firebase_options.dart';
+import '../dialogs/show_error_dialog.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -52,17 +49,21 @@ class _RegisterPage extends State<RegisterPage> {
               ElevatedButton(
                 onPressed: () async {
                   try {
-                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                    await AuthService.firebase().createUser(
                         email: em.text,
                         password: ps.text
                     );
-                    final user=FirebaseAuth.instance.currentUser;
-                    await user?.sendEmailVerification();
+                    final user=AuthService.firebase().currentUser;
+                     AuthService.firebase().sendVerificationMail();
                     Navigator.pushNamed(context,verifyRoute);
-                  } on FirebaseAuthException catch (e) {//catching the exception if creation of user fails
-                    await showErrorDialog(context, e.code);  //various types of exception could be handled here. (like we did in Loginpage)
-                  }catch(e){
-                    await showErrorDialog(context, e.toString());
+                  } on EmailAlreadyInUseAuthException {//catching the exception if creation of user fails
+                    await showErrorDialog(context, "Email already Taken");  //various types of exception could be handled here. (like we did in Loginpage)
+                  }on WeakPasswordAuthException{
+                    await showErrorDialog(context, "Password is too Weak");
+                  }on InvalidEmailAuthException{
+                    await showErrorDialog(context, "Invalid Email");
+                  }on GenericAuthException {
+                    await showErrorDialog(context, "Something went wrong!!");
                   }
                 },
                 child: Text("Register"),

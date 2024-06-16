@@ -1,5 +1,5 @@
 import 'package:fcc/constants/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fcc/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class VerifyPage extends StatelessWidget {
@@ -15,8 +15,8 @@ class VerifyPage extends StatelessWidget {
           SizedBox(height: 10,),
           const Text("If mail not received click the button below"),
           ElevatedButton(onPressed: ()async{
-            final user=FirebaseAuth.instance.currentUser;
-              await user?.sendEmailVerification();
+            final user=AuthService.firebase().currentUser;
+              await AuthService.firebase().sendVerificationMail();
           }, child: const Text("Send verification email AGAIN " )),
           SizedBox(height: 20,),
           Text("Proceed to login if you verified your email"),

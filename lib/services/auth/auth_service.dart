@@ -1,10 +1,16 @@
 import 'package:fcc/services/auth/auth_providerr.dart';
 import 'package:fcc/services/auth/auth_user.dart';
+import 'package:fcc/services/auth/firebase_auth_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import '../../firebase_options.dart';
 
 class AuthService implements AuthProviderr{
   final AuthProviderr authProviderr;
 
   AuthService(this.authProviderr);
+
+  factory AuthService.firebase()=>AuthService(FirebaseAuthProvider());
 
   @override
   Future<AuthUser> createUser({required email, required password}) {
@@ -29,5 +35,8 @@ class AuthService implements AuthProviderr{
   Future<void> sendVerificationMail() {
     return authProviderr.sendVerificationMail();
   }
+
+  @override
+  Future<void> initialize()=>authProviderr.initialize();
 
 }
