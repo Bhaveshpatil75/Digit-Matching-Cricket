@@ -51,8 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
                       Navigator.pushNamedAndRemoveUntil(context, "/notes/", (_)=>false);
                     }on FirebaseAuthException  catch (e) {
-                      if (e.code =="invalid-credential")
-                        print("wrong pass");
+                        showErrorDialog(context, e.code);
                     }
                   },
                   child: Text("Login"),
@@ -66,4 +65,19 @@ class _LoginPageState extends State<LoginPage> {
           )
       );
     }
+  }
+
+  Future<void> showErrorDialog(BuildContext context,String errorMsg){
+  return showDialog(context: context, builder: (context){
+    return AlertDialog(
+      title: Text("Error!!"),
+      content: Text(errorMsg),
+      actions: [
+        TextButton(onPressed: (){
+          Navigator.of(context).pop();
+        }, child: Text("OK"))
+      ],
+    );
+  },
+  );
   }

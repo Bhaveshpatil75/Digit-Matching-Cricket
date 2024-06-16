@@ -15,6 +15,7 @@ class VerifyPage extends StatelessWidget {
           ElevatedButton(onPressed: ()async{
             final user=FirebaseAuth.instance.currentUser;
             await user?.sendEmailVerification();
+            Navigator.pushNamedAndRemoveUntil(context, "/login/", (_)=>false);
           }, child: const Text("Send verification email"))
         ],
       ),
