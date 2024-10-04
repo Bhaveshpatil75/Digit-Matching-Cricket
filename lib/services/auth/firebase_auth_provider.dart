@@ -3,8 +3,8 @@ import 'package:fcc/services/auth/auth_exceptionss.dart';
 import 'package:fcc/services/auth/auth_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import '../../firebase_options.dart';
+
 
 class FirebaseAuthProvider implements AuthProviderr{
   @override
@@ -77,6 +77,4 @@ class FirebaseAuthProvider implements AuthProviderr{
         options: DefaultFirebaseOptions.currentPlatform
     );
   }
-
-
 }

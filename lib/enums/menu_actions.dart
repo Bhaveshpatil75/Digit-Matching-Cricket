@@ -1,1 +1,1 @@
-enum MenuAction{logout}
+enum MenuAction{newGame,records,feedback,globalRank}
