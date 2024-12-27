@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-const String  key="AIzaSyAheDFh1MmBOo946L7xlPe3NzsG6KYl5a8";
+const String  key="#############################";
 
 class BotChat extends StatefulWidget {
   const BotChat({super.key});
