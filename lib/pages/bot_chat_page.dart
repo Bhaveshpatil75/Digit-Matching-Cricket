@@ -1,10 +1,11 @@
 
 import 'dart:async';
 
+import 'package:fcc/private/private.dart';
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-const String  key="#############################";
+const String  key=geminiKey;
 
 class BotChat extends StatefulWidget {
   const BotChat({super.key});
