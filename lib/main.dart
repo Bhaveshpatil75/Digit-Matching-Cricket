@@ -7,10 +7,12 @@ import 'package:fcc/pages/splash_page.dart';
 import 'package:fcc/pages/verification_page.dart';
 import 'package:fcc/services/auth/auth_service.dart';
 import 'package:fcc/widgets/loading.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -23,17 +25,17 @@ class MyApp extends StatelessWidget {
 
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple,primary: Colors.deepPurple[400]),
         useMaterial3: true,
       ),
       home: SplashPage(),
       routes: {
-        loginRoute:(context)=>LoginPage(),
-        registerRoute:(context)=>RegisterPage(),
+        loginRoute:(context)=>const LoginPage(),
+        registerRoute:(context)=>const RegisterPage(),
        // notesRoute:(context)=>NotePage(),
-        verifyRoute:(context)=>VerifyPage(),
-        routeRoute:(context)=>RoutePage(),
-        tossRoute:(context)=>TossPage(),
+        verifyRoute:(context)=>const VerifyPage(),
+        routeRoute:(context)=>const RoutePage(),
+        //tossRoute:(context)=>TossPage(),
        // winnerRoute:(context)=>WinnerPage(),
         //matchRoute:(context)=>MatchPage(),
       },
@@ -56,7 +58,7 @@ class RoutePage extends StatelessWidget {
               final curUser=AuthService.firebase().currentUser;
               if (curUser != null) {
                 if (curUser.isEmailVerified) {
-                  return const TossPage();
+                  return  TossPage(username:"User",);
                 } else {
                   return const VerifyPage();
                 }
@@ -65,7 +67,7 @@ class RoutePage extends StatelessWidget {
                 return const LoginPage();
               }
             default:  //all other cases such as none and so on
-              return Loading();
+              return const Loading();
           }
         },
       ),

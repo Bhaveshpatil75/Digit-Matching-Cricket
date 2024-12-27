@@ -17,12 +17,11 @@ class _ChatListPageState extends State<ChatListPage> {
   final DatabaseService db=DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid);
     build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: IconButton(onPressed: () {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>BotChat()));
-        }, icon: Icon(Icons.ac_unit),
-        color: Colors.deepPurple.shade300,
-          iconSize: 50,
-        ),
+        // floatingActionButton: ElevatedButton(onPressed: () {
+        //   Navigator.push(context,MaterialPageRoute(builder: (context)=>BotChat()));
+        // },
+        // child: Text("AI"),
+        // ),
       appBar: AppBar(
         backgroundColor: Colors.deepPurple.shade200,
         title: Text("Chats"),
@@ -30,15 +29,16 @@ class _ChatListPageState extends State<ChatListPage> {
           Navigator.of(context).pop();
         }, icon: Icon(Icons.arrow_back_outlined),),
         actions: [
-          IconButton(onPressed: (){
-          }, icon: Icon(Icons.add_circle_outline_rounded))
+          ElevatedButton(onPressed: () {
+    Navigator.push(context,MaterialPageRoute(builder: (context)=>BotChat()));
+    }, child: Text("AI"),)
         ],
       ),
       body:StreamBuilder(
         stream: db.users,
         builder: (context, snapshot) {
           final data=snapshot.data?.toList() ??[];
-          return data==null?Text("Nothing here"): ListView.separated(itemBuilder: (context,index){
+          return data==null?Center(child: Text("Nothing here")): ListView.separated(itemBuilder: (context,index){
             return ListTile(
               leading: CircleAvatar(child: FittedBox(child: Icon(Icons.account_circle_sharp,size: 50)),),
               tileColor: Colors.deepPurple.shade100,

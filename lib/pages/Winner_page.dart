@@ -16,7 +16,7 @@ class _WinnerPageState extends State<WinnerPage> {
   Widget build(BuildContext context) {
     String msg=widget.matchWinner=="tie"? "Match Tied":"${widget.matchWinner} won the match";
     return Scaffold(
-      appBar: appBar(context),
+      appBar: appBar(context,null),
       body: Center(child: Text("$msg",style: TextStyle(fontSize: 30),))
     );
   }

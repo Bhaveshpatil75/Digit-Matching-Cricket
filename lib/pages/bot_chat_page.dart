@@ -15,8 +15,8 @@ class BotChat extends StatefulWidget {
 
 
 class _BotChatState extends State<BotChat> {
-  List<Message> chats=[Message(text: "Hello I am Pyster an AI assistant. how may I help you today?", receiver: "User")];
-  var message=TextEditingController();
+  List<Message> chats=[Message(text: "Hello I am an AI assistant. how may I help you today?", receiver: "User")];
+  var message=TextEditingController(text: "Hello, please explain the game to me");
   final model=GenerativeModel(model: "gemini-1.5-flash", apiKey: key);
   dynamic chat;
   late ScrollController scroll;
@@ -24,10 +24,19 @@ class _BotChatState extends State<BotChat> {
   void initState() {
     scroll=ScrollController();
     chat = model.startChat(history: [
-      Content.text('Hello, my name is Bhavesh'),
-      Content.model([TextPart('Hello my name is Pyster and i am your friend today')])
+      Content.text("what is this app?"),
+      Content.model([TextPart("this is a Digit Matching Cricket game application")]),
+      Content.text('please explain this game'),
+      Content.model([
+        TextPart(
+            'Ok, the name of the game is Digit Matching Cricket. it is played between one player and bot player chooses a random number from 1,2 , 3,4 and 6 and bot does the same if the digit matches then the one who is batting gets out and score is recorded and then other one does the batting. who is batting is decided at the toss initially if the digit doesnt matches then score is added with the chosen number from batter and score rules are same as of cricket')
+      ])
     ]);
     super.initState();
+  }
+  @override
+  void dispose() {
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -39,10 +48,10 @@ class _BotChatState extends State<BotChat> {
         }, icon: Icon(Icons.arrow_back_outlined),),
         title: Row(
           children: [
-            CircleAvatar(child: Text("P"),),
+            CircleAvatar(child: Text("B"),),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Pyster"),
+              child: Text("Bot"),
             ),
           ],
         ),

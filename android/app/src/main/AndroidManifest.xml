@@ -18,7 +18,7 @@
     </queries>
 
     <application
-        android:label="fcc"
+        android:label="DMC"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
